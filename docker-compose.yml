@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+        context: ./backend
+    #image: table-service-api:latest
+    #volumes:
+    #  - .:/app      # Монтируем локальные файлы
+    expose:
+      - "8000"      # Чтобы Nginx мог общаться с приложением
+    ports:
+      - "8004:8000"
+    environment:
+      # - KRB5_CONFIG=/etc/krb5.conf  # Укажите путь к вашему krb5.conf
+      - KRB5_KEYTAB=./example.keytab # Укажите путь к вашему keytab
+
+  nginx:
+    build:
+      context: ./nginx   # Папка с Dockerfile для Nginx
+    ports:
+      - "8003:80"
+    depends_on:
+      - app
