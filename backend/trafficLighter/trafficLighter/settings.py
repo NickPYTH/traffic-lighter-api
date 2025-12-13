@@ -25,7 +25,6 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'test-vapp-03.sgp.ru', 'sco1-vapp-04.
 
 INSTALLED_APPS = [
     'channels',
-    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
