@@ -21,9 +21,9 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ('id', 'user', 'department')
 
 class IndicatorSerializer(serializers.ModelSerializer):
-    department = DepartmentSerializer(read_only=True)
+    department_id = serializers.IntegerField(write_only=True)
+    department = DepartmentSerializer(read_only=True)  # только для чтения
 
     class Meta:
         model = Indicator
-        fields = ('id', 'name', 'description', 'department',
-                  'fact_value', 'plan_value', 'month')
+        fields = ['id', 'name', 'description', 'department', 'department_id', 'fact_value', 'plan_value', 'month']
