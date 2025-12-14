@@ -1,10 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-
-from .models import Department, Profile
+from .models import Department, Profile, Indicator
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
         model = User
         fields = ('id', 'username', 'email')
@@ -15,10 +13,17 @@ class DepartmentSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'description')
 
 class ProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer(many=True)
-    department = DepartmentSerializer(many=True)
+    user = UserSerializer(read_only=True)
+    department = DepartmentSerializer(read_only=True)
 
     class Meta:
         model = Profile
         fields = ('id', 'user', 'department')
 
+class IndicatorSerializer(serializers.ModelSerializer):
+    department = DepartmentSerializer(read_only=True)
+
+    class Meta:
+        model = Indicator
+        fields = ('id', 'name', 'description', 'department',
+                  'fact_value', 'plan_value', 'month')
